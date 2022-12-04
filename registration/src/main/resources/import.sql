@@ -1,0 +1,2 @@
+--insert into tb_endereco (estado, cidade, rua, numero) values ('PE', 'Riba', 'Sao Gon', 63);
+--insert into tb_cadastros (NOME, IDADE, NUMERO, CODIGO_ENTRADA_ID, PLANOS, FORMA_PAGAMENTO, ENDERECO_ID, DATA_FIM_VIGENCIA, DATA_REGISTRO) values ('Diego L', 26, '81654', 1, 0, 0, 1, '2022/12/06 12:30:02', '2022/12/06 12:30:02');

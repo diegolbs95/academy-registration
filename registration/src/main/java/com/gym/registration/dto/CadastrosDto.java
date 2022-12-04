@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +23,8 @@ public class CadastrosDto {
 
     private Planos planos;
     private FormaPagamento formaPagamento;
+    private String dataFimVigencia;
+    private String dataRegistro;
 
     private Endereco endereco;
 }
