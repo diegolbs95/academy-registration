@@ -61,7 +61,7 @@ public class CadastroController {
             return ResponseEntity.ok(cadastroService.liberarCatraca(codigoEntrada));
         }catch (ErrorBuscarClientesException ex){
             log.info("Aluno não encontrado!");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Catrca não liberada");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Catraca não liberada");
         }
     }
 
