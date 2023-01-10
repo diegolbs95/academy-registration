@@ -5,10 +5,9 @@ import com.gym.registration.enums.FormaPagamento;
 import com.gym.registration.enums.Planos;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
+import org.springframework.validation.annotation.Validated;
 
 @Entity
 @Getter
@@ -29,6 +28,9 @@ public class Cadastros {
     private Integer idade;
     @Column(nullable = false)
     private String numero;
+    @Column(nullable = false)
+    @Email
+    private String email;
 
     private Integer codigoEntradaId;
     private Boolean alunoRenovado;

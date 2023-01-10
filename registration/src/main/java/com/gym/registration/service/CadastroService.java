@@ -1,5 +1,6 @@
 package com.gym.registration.service;
 
+import com.gym.registration.config.RabbitMQConfig;
 import com.gym.registration.dto.CadastrosDto;
 import com.gym.registration.entity.Cadastros;
 import com.gym.registration.enums.FormaPagamento;
@@ -8,6 +9,8 @@ import com.gym.registration.exceptions.ErroCadastroClienteException;
 import com.gym.registration.exceptions.ErrorBuscarClientesException;
 import com.gym.registration.repository.CadastroRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static com.gym.registration.AppConstant.FILA_ENVIO_EMAIL;
 import static com.gym.registration.AppConstant.FORMATO_DATA;
 
 @Service
@@ -23,6 +27,9 @@ public class CadastroService {
 
     @Autowired
     private CadastroRepository repository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public List<Cadastros> todosCadastros () {
         try {
@@ -46,6 +53,7 @@ public class CadastroService {
             var cliente = Cadastros.builder()
                     .endereco(dto.getEndereco())
                     .idade(dto.getIdade())
+                    .email(dto.getEmail())
                     .nome(dto.getNome())
                     .numero(dto.getNumero())
                     .planos(dto.getPlanos())
@@ -58,9 +66,13 @@ public class CadastroService {
             repository.save(cliente);
             log.info("Cliente cadastrado com sucesso");
 
+            var message = new Message(cliente.getEmail().getBytes());
+
+            rabbitTemplate.send(FILA_ENVIO_EMAIL, message);
+
             return "CLIENTE_CADASTRADO";
         }catch (Exception e){
-            throw new ErroCadastroClienteException("Erro ao adicionar clinete", e);
+            throw new ErroCadastroClienteException("Erro ao adicionar cliente", e);
         }
     }
 
