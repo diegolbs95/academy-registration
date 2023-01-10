@@ -24,17 +24,3 @@ services:
       - 3000:3000
     networks:
       - aw-network
-
-#  alertmanager:
-#    image: prom/alertmanager
-#    container_name: alertmanager
-#    volumes:
-#      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
-#    ports:
-#      - 9093:9093
-#    networks:
-#      - "monitoring-network"
-
-#networks:
-#  monitoring-network:
-#    driver: bridge

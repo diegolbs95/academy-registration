@@ -12,11 +12,3 @@ scrape_configs:
       - targets: ["host.docker.internal:8080"]
         labels:
           application: "api-registration"
-
-
-#  - job_name: 'docker'
-#      # metrics_path defaults to '/metrics'
-#    # scheme defaults to 'http'.
-#
-#    static_configs:
-#      - targets: ['localhost:9323']
